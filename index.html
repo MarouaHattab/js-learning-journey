@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Learning Journey - Projects Portfolio</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(
+          135deg,
+          #0f0f23 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        min-height: 100vh;
+        color: #e94560;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 4rem;
+        color: #f5f5f5;
+        position: relative;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 4px;
+        background: linear-gradient(90deg, #e94560, #f27121);
+        border-radius: 2px;
+      }
+
+      .header h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        text-shadow: 3px 3px 6px rgba(233, 69, 96, 0.3);
+        background: linear-gradient(135deg, #e94560, #f27121);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          filter: drop-shadow(0 0 10px rgba(233, 69, 96, 0.3));
+        }
+        to {
+          filter: drop-shadow(0 0 20px rgba(233, 69, 96, 0.6));
+        }
+      }
+
+      .header p {
+        font-size: 1.3rem;
+        opacity: 0.9;
+        color: #a0a0a0;
+        font-weight: 300;
+        margin-bottom: 2rem;
+      }
+
+      .video-section {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .video-title {
+        color: #f5f5f5;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(233, 69, 96, 0.2);
+        background: rgba(26, 26, 46, 0.8);
+        backdrop-filter: blur(20px);
+      }
+
+      .video-container iframe {
+        width: 100%;
+        height: 315px;
+        border: none;
+        display: block;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 2.5rem;
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+      }
+
+      .project-card {
+        background: linear-gradient(
+          145deg,
+          rgba(26, 26, 46, 0.8),
+          rgba(22, 33, 62, 0.9)
+        );
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+          0 0 0 1px rgba(233, 69, 96, 0.1);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(233, 69, 96, 0.2);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .project-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(233, 69, 96, 0.1),
+          transparent
+        );
+        transition: left 0.6s;
+      }
+
+      .project-card:hover::before {
+        left: 100%;
+      }
+
+      .project-card:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(233, 69, 96, 0.3), 0 0 30px rgba(233, 69, 96, 0.2);
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .project-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+        display: block;
+        text-align: center;
+        filter: drop-shadow(0 4px 8px rgba(233, 69, 96, 0.3));
+        transition: all 0.3s ease;
+      }
+
+      .project-card:hover .project-icon {
+        transform: scale(1.1) rotate(5deg);
+        filter: drop-shadow(0 6px 12px rgba(233, 69, 96, 0.5));
+      }
+
+      .project-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: #f5f5f5;
+        text-align: center;
+        letter-spacing: 0.5px;
+      }
+
+      .project-description {
+        color: #b0b0b0;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .project-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        justify-content: center;
+      }
+
+      .tech-tag {
+        background: linear-gradient(135deg, #e94560, #f27121);
+        color: white;
+        padding: 0.4rem 1rem;
+        border-radius: 25px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(233, 69, 96, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .tech-tag:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(233, 69, 96, 0.5);
+      }
+
+      .footer {
+        margin-top: 4rem;
+        background: linear-gradient(
+          135deg,
+          #0f0f23 0%,
+          #1a1a2e 50%,
+          #16213e 100%
+        );
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(233, 69, 96, 0.2);
+        text-align: center;
+        padding: 2rem 0;
+      }
+
+      .footer-content {
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-content p {
+        color: #f5f5f5;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        font-weight: 400;
+        opacity: 0.9;
+      }
+
+      .footer-credit {
+        color: #e94560;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .github-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #f5f5f5;
+        text-decoration: none;
+        padding: 0.8rem 1.5rem;
+        border: 2px solid rgba(233, 69, 96, 0.3);
+        border-radius: 30px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        background: rgba(233, 69, 96, 0.1);
+      }
+
+      .github-link:hover {
+        color: #fff;
+        border-color: #e94560;
+        background: rgba(233, 69, 96, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(233, 69, 96, 0.3);
+        text-decoration: none;
+      }
+
+      .github-icon {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      .github-link:hover .github-icon {
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2.5rem;
+        }
+
+        .header p {
+          font-size: 1.1rem;
+        }
+
+        .projects-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          padding: 0 0.5rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        .project-card {
+          padding: 1.5rem;
+        }
+
+        .project-icon {
+          font-size: 3rem;
+        }
+
+        .project-title {
+          font-size: 1.4rem;
+        }
+
+        .video-container {
+          max-width: 100%;
+          margin: 0 1rem;
+        }
+
+        .video-container iframe {
+          height: 250px;
+        }
+
+        .video-title {
+          font-size: 1rem;
+          padding: 0 1rem;
+        }
+
+        .footer-credit {
+          font-size: 1rem;
+        }
+
+        .github-link {
+          padding: 0.7rem 1.3rem;
+          font-size: 0.9rem;
+        }
+
+        .footer-content p {
+          font-size: 0.95rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .project-card {
+          margin: 0 0.5rem;
+        }
+
+        .tech-tag {
+          font-size: 0.75rem;
+          padding: 0.3rem 0.8rem;
+        }
+
+        .video-container iframe {
+          height: 200px;
+        }
+
+        .video-title {
+          font-size: 0.95rem;
+        }
+
+        .footer-credit {
+          font-size: 1rem;
+        }
+
+        .github-link {
+          padding: 0.6rem 1.2rem;
+          font-size: 0.85rem;
+        }
+
+        .footer-content p {
+          font-size: 0.9rem;
+          line-height: 1.6;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🚀 JavaScript Learning Journey</h1>
+        <p>
+          A collection of interactive projects built with HTML, CSS & JavaScript
+        </p>
+
+        <div class="video-section">
+          <div class="video-title">📚 Learn JavaScript - Course I Followed</div>
+          <div class="video-container">
+            <iframe
+              src="https://www.youtube.com/embed/lfmg-EJ8gm4?autoplay=0&mute=1&controls=1"
+              title="JavaScript Course"
+              frameborder="0"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        <a href="Calculator program/index.html" class="project-card">
+          <div class="project-icon">🧮</div>
+          <div class="project-title">Calculator Program</div>
+          <div class="project-description">
+            A fully functional calculator with glassmorphism design featuring
+            all basic operations, decimal calculations, keyboard support, and
+            smooth animations.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="Weather App project/index.html" class="project-card">
+          <div class="project-icon">🌤️</div>
+          <div class="project-title">Weather App</div>
+          <div class="project-description">
+            A comprehensive weather application that provides real-time weather
+            data, forecasts, and beautiful weather animations with
+            location-based services.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">API</span>
+          </div>
+        </a>
+
+        <a href="Digital Clock program/index.html" class="project-card">
+          <div class="project-icon">🕐</div>
+          <div class="project-title">Digital Clock</div>
+          <div class="project-description">
+            A beautiful real-time digital clock displaying current time with
+            elegant design, smooth transitions, and customizable time formats.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="Rock Paper Scissors/index.html" class="project-card">
+          <div class="project-icon">✂️</div>
+          <div class="project-title">Rock Paper Scissors</div>
+          <div class="project-description">
+            Classic rock-paper-scissors game with interactive gameplay, score
+            tracking, animations, and computer AI opponent.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="Dice Roller program/index.html" class="project-card">
+          <div class="project-icon">🎲</div>
+          <div class="project-title">Dice Roller</div>
+          <div class="project-description">
+            Interactive dice rolling simulator with realistic dice animations,
+            multiple dice support, and randomized outcomes.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="Number guessing game/index.html" class="project-card">
+          <div class="project-icon">🔢</div>
+          <div class="project-title">Number Guessing Game</div>
+          <div class="project-description">
+            Fun number guessing game with hints, attempt tracking, difficulty
+            levels, and score system to challenge your guessing skills.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="CounterProgram/index.html" class="project-card">
+          <div class="project-icon">🔢</div>
+          <div class="project-title">Counter Program</div>
+          <div class="project-description">
+            Simple yet elegant counter application with increment, decrement,
+            and reset functionality featuring smooth animations and modern UI
+            design.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="Stopwatch program/index.html" class="project-card">
+          <div class="project-icon">⏱️</div>
+          <div class="project-title">Stopwatch Program</div>
+          <div class="project-description">
+            Precision stopwatch with start, stop, reset, and lap time features.
+            Perfect for timing activities with millisecond accuracy.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a
+          href="Temperature conversion program/index.html"
+          class="project-card"
+        >
+          <div class="project-icon">🌡️</div>
+          <div class="project-title">Temperature Converter</div>
+          <div class="project-description">
+            Convert temperatures between Celsius, Fahrenheit, and Kelvin with
+            instant calculations, input validation, and clean interface.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="Random password generator/index.html" class="project-card">
+          <div class="project-icon">🔐</div>
+          <div class="project-title">Password Generator</div>
+          <div class="project-description">
+            Generate secure random passwords with customizable length, character
+            sets, and complexity options for enhanced security.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+
+        <a href="Image Slider/index.html" class="project-card">
+          <div class="project-icon">🖼️</div>
+          <div class="project-title">Image Slider</div>
+          <div class="project-description">
+            Responsive image carousel with navigation arrows, dot indicators,
+            auto-play functionality, and smooth transition effects.
+          </div>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="footer">
+        <div class="footer-content">
+          <p>
+            🎯 Built with passion for learning JavaScript • Click any project to
+            explore!
+          </p>
+        </div>
+
+        <div class="footer-credit">Created with ❤️ by Maroua Hattab</div>
+
+        <a
+          href="https://github.com/MarouaHattab"
+          target="_blank"
+          class="github-link"
+        >
+          <svg
+            class="github-icon"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
+            />
+          </svg>
+          Contact me on GitHub
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // Add smooth scroll behavior and enhanced interactions
+      document.querySelectorAll(".project-card").forEach((card) => {
+        card.addEventListener("click", function (e) {
+          // Add a small delay for the hover animation before navigation
+          e.preventDefault();
+          const href = this.getAttribute("href");
+
+          // Add click effect
+          this.style.transform = "translateY(-10px) scale(0.98)";
+
+          setTimeout(() => {
+            window.location.href = href;
+          }, 200);
+        });
+
+        // Add mouse enter/leave effects for better interaction
+        card.addEventListener("mouseenter", function () {
+          this.style.zIndex = "10";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.zIndex = "1";
+          this.style.transform = "";
+        });
+      });
+
+      // Enhanced fade-in animation on load
+      window.addEventListener("load", function () {
+        const cards = document.querySelectorAll(".project-card");
+        const header = document.querySelector(".header");
+
+        // Animate header first
+        header.style.opacity = "0";
+        header.style.transform = "translateY(-30px)";
+        header.style.transition = "all 0.8s ease";
+
+        setTimeout(() => {
+          header.style.opacity = "1";
+          header.style.transform = "translateY(0)";
+        }, 200);
+
+        // Then animate cards
+        cards.forEach((card, index) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(30px) scale(0.9)";
+
+          setTimeout(() => {
+            card.style.transition =
+              "all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0) scale(1)";
+          }, 400 + index * 150);
+        });
+      });
+
+      // Add parallax effect to background
+      window.addEventListener("scroll", function () {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector("body");
+        const speed = scrolled * 0.5;
+
+        parallax.style.backgroundPosition = `center ${speed}px`;
+      });
+
+      // Add keyboard navigation
+      document.addEventListener("keydown", function (e) {
+        const cards = document.querySelectorAll(".project-card");
+        const focusedCard = document.activeElement;
+
+        if (
+          e.key === "Enter" &&
+          focusedCard.classList.contains("project-card")
+        ) {
+          focusedCard.click();
+        }
+      });
+    </script>
+  </body>
+</html>
